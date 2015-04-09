@@ -1,6 +1,6 @@
 /********************************************************************//**
-* @file     main.c
-* @brief    main function
+* @file     lib.c
+* @brief    library
 * @date     2015.xx.xx
 * @author   bokuweb
 ***********************************************************************/
@@ -20,18 +20,25 @@
 /* Public Functions ------------------------------------------------ */
 
 /******************************************************************//**
- * @brief       main function
+ * @brief       putc
  * @param       none
  * @return      none
  *********************************************************************/
-int16_t main(void)
+int16_t kz_putc(uint8_t c)
 {
-    serial_init();
+    if (c == '\n')
+        serial_send_byte('\r');
+    return serial_send_byte(c);
+}
 
-    kz_puts("Hello World!\n");
-
-    while (true)
-        ;
-
+/******************************************************************//**
+ * @brief       puts
+ * @param       none
+ * @return      none
+ *********************************************************************/
+int16_t kz_puts(uint8_t *str)
+{
+    while (*str)
+        kz_putc (*(str));
     return 0;
 }

@@ -1,3 +1,4 @@
+
     .list
     .global _start
     .short _start
@@ -7,5 +8,3 @@ _start:
     movw sp,#_stack /* Set stack pointer */
     call !!_main
 
-1:
-    bra 1b

@@ -7,6 +7,7 @@
 
 /* Includes -------------------------------------------------------- */
 #include "defines.h"
+#include "interrupt_handlers.h"
 
 extern void start(void);
 
