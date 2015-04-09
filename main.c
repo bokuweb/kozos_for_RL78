@@ -1,37 +1,62 @@
-/********************************************************************//**
-* @file     main.c
-* @brief    main function
-* @date     2015.xx.xx
-* @author   bokuweb
-***********************************************************************/
+/***************************************************************/
+/*                                                             */
+/*      PROJECT NAME :  RL78G13_LED_SAMPLE                     */
+/*      FILE         :  RL78G13_LED_SAMPLE.c                   */
+/*      DESCRIPTION  :  Main Program                           */
+/*      CPU SERIES   :  RL78 - G13                             */
+/*      CPU TYPE     :  R5F100LE                               */
+/*                                                             */
+/***************************************************************/                                   
 
-/* Pragma directive ------------------------------------------------ */
+#include "iodefine.h"
 
+#define LED01_PIN   P6_bit.no2
+#define LED01       PM6_bit.no2
 
-/* Includes -------------------------------------------------------- */
-#include "defines.h"
-#include "serial.h"
-#include "lib.h"
-
-/* Private Variable ------------------------------------------------ */
-
-/* Private Functions ----------------------------------------------- */
-
-/* Public Functions ------------------------------------------------ */
-
-/******************************************************************//**
- * @brief       main function
- * @param       none
- * @return      none
- *********************************************************************/
-int16_t main(void)
+#ifdef CPPAPP
+//Initialize global constructors
+extern "C" void __main()
 {
-    serial_init();
+  static int initialized;
+  if (! initialized)
+    {
+      typedef void (*pfunc) ();
+      extern pfunc __ctors[];
+      extern pfunc __ctors_end[];
+      pfunc *p;
 
-    kz_puts("Hello World!\n");
+      initialized = 1;
+      for (p = __ctors_end; p > __ctors; )
+          (*--p) ();
 
-    while (true)
-        ;
+    }
+}
+#endif 
+void delay()
+{
+    unsigned long long uLcounter = 0;
+    for(uLcounter=0;uLcounter<100000;uLcounter++)
+    {
+        asm("nop"); // do nothing
+        asm("nop"); // do nothing
+        asm("nop"); // do nothing
+        asm("nop"); // do nothing
+        
+    }
+    
+}
+void dummy(void) {
+}
 
-    return 0;
+int main(void)
+{
+
+  LED01_PIN = 0; // Make Pin as O/P
+  LED01 = 0; // Turn LED ON
+  while(1)
+  {
+     LED01 = ~LED01; // toggle LED
+     delay();
+  }
+  return 0;
 }
