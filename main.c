@@ -1,28 +1,35 @@
+/********************************************************************//**
+* @file     main.c
+* @brief    main function
+* @date     2015.xx.xx
+* @author   bokuweb
+***********************************************************************/
+
+/* defines -------------------------------------------------------- */
+#define LED1_PIN   P6_bit.no2
+#define LED1       PM6_bit.no2
+
+/* Includes -------------------------------------------------------- */
 #include "iodefine.h"
+#include "defines.h"
+#include "serial.h"
+#include "lib.h"
 
-#define LED01_PIN   P6_bit.no2
-#define LED01       PM6_bit.no2
+/* Private Variable ------------------------------------------------ */
 
-void delay()
+/* Private Functions ----------------------------------------------- */
+
+/* Public Functions ------------------------------------------------ */
+
+int16_t main(void)
 {
-    unsigned long long uLcounter = 0;
-    for(uLcounter=0;uLcounter<100000;uLcounter++)
-    {
-        asm("nop"); // do nothing
-        asm("nop"); // do nothing
-        asm("nop"); // do nothing
-        asm("nop"); // do nothing
-    }
-}
+    LED1_PIN = 0; // Make Pin as O/P
+    LED1 = 0;     // Turn LED ON
 
-int main(void)
-{
-    LED01_PIN = 0; // Make Pin as O/P
-    LED01 = 0; // Turn LED ON
-    while(1)
-    {
-        LED01 = ~LED01; // toggle LED
-        delay();
+    serial_init();
+    kz_puts("Hello World!\n");
+    while (true) {
+        ;
     }
     return 0;
 }

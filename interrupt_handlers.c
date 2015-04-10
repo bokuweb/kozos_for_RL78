@@ -1,12 +1,4 @@
-/***************************************************************/
-/*                                                             */
-/*      PROJECT NAME :  RL78G13_LED_SAMPLE                     */
-/*      FILE         :  interrupt_handlers.c                   */
-/*      DESCRIPTION  :  Interrupt Handler                      */
-/*      CPU SERIES   :  RL78 - G13                             */
-/*      CPU TYPE     :  R5F100LE                               */
-/*                                                             */
-/***************************************************************/                            
+
 #include "interrupt_handlers.h"
 
 /*
