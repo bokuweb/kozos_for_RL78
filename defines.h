@@ -8,7 +8,6 @@
 #define _DEFINES_H_INCLUDE_
 
 #define NULL  ((void*)0)
-#define SERIAL_DEFAULT_DEVICE 1
 
 typedef char                char_t;
 typedef unsigned int        uint_t;

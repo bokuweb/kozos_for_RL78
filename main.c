@@ -28,6 +28,11 @@ int16_t main(void)
 
     serial_init();
     kz_puts("Hello World!\n");
+    kz_putxval(0x10, 0);
+    kz_puts("\n");
+    kz_putxval(0xffff, 0);
+    kz_puts("\n");
+    
     while (true) {
         ;
     }
