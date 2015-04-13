@@ -25,7 +25,7 @@ ALL_FLAGS = $(CFLAGS) $(DEBUG_FLAGS) $(CPU)
 #APPNAME = 
 
 # Specify all objects that you are going to link together
-OBJS	=	  startup.o interrupt.o main.o  vector.o serial.o lib.o
+OBJS	=	  startup.o interrupt.o main.o  vector.o serial.o lib.o intr.o
 SOURCES =	  interrupt.c main.c  vector.c serial.c lib.c
 
 kzload.mot : kzload.x
@@ -34,7 +34,7 @@ kzload.mot : kzload.x
 # Define ROMSTART if compiling for ROM
 kzload.x:$(SOURCES)  makefile
 	$(CC) $(ALL_FLAGS) $(SOURCES)
-	$(CC) -c -x c -Wa,-gdwarf2 -x assembler-with-cpp   -nostdinc  -g2 -g startup.asm
+	$(CC) -c -x c -Wa,-gdwarf2 -x assembler-with-cpp   -nostdinc  -g2 -g startup.asm intr.asm
 	$(LD) -o kzload.x  -T "ld.gsi"  *.o -M=kzload.map --start-group --end-group -e_start
 all:kzload.mot
 rom:kzload.mot

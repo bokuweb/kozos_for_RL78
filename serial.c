@@ -52,7 +52,7 @@ static int16_t serial_is_recv_enable(void)
  *********************************************************************/
 int16_t serial_init(void)
 {
-    SAU0EN = 1U;    /* supply SAU0 clock */
+    SAU0EN = 1;    /* supply SAU0 clock */
     NOP();
     NOP();
     NOP();
@@ -61,20 +61,20 @@ int16_t serial_init(void)
     SPS0 = 0x0044;
     ST0 |= 0x0003;
 
-    STMK0  = 1U;    /* disable INTST0 interrupt     */
-    STIF0  = 0U;    /* clear INTST0 interrupt flag  */
-    SRMK0  = 1U;    /* disable INTSR0 interrupt     */
-    SRIF0  = 0U;    /* clear INTSR0 interrupt flag  */
-    SREMK0 = 1U;    /* disable INTSRE0 interrupt    */
-    SREIF0 = 0U;    /* clear INTSRE0 interrupt flag */
+    STMK0  = 1;    /* disable INTST0 interrupt     */
+    STIF0  = 0;    /* clear INTST0 interrupt flag  */
+    SRMK0  = 1;    /* disable INTSR0 interrupt     */
+    SRIF0  = 0;    /* clear INTSR0 interrupt flag  */
+    SREMK0 = 1;    /* disable INTSRE0 interrupt    */
+    SREIF0 = 0;    /* clear INTSRE0 interrupt flag */
 
     /* Set INTST0 low priority */
-    STPR10 = 1U;
-    STPR00 = 1U;
+    STPR10 = 1;
+    STPR00 = 1;
 
     /* Set INTSR0 low priority */
-    SRPR10 = 1U;
-    SRPR00 = 1U;
+    SRPR10 = 1;
+    SRPR00 = 1;
 
     SMR00 = 0x0022;
     SCR00 = 0x8097;
@@ -91,17 +91,17 @@ int16_t serial_init(void)
     SOE0 |= 0x0001;    /* enable UART0 output */
 
     /* Set RxD0 pin */
-    PM1 |= 0x02U;
+    PM1 |= 0x02;
 
     /* Set TxD0 pin */
-    P1  |= 0x04U;
-    PM1 &= 0xFBU;
+    P1  |= 0x04;
+    PM1 &= 0xFB;
 
     SS0 |= 0x0003;
-    STIF0 = 0U;    /* clear INTST0 interrupt flag */
-    SRIF0 = 0U;    /* clear INTSR0 interrupt flag */
-    STMK0 = 0U;    /* enable INTST0 interrupt */
-    SRMK0 = 0U;    /* enable INTSR0 interrupt */
+    STIF0 = 0;    /* clear INTST0 interrupt flag */
+    SRIF0 = 0;    /* clear INTSR0 interrupt flag */
+    STMK0 = 1;    /* enable INTST0 interrupt */
+    SRMK0 = 0;    /* enable INTSR0 interrupt */
 
     return 0;
 }

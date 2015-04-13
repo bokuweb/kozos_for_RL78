@@ -41,6 +41,7 @@ static int16_t dump(char_t *buf, int32_t size)
 {
     uint32_t i;
 
+
     if (size < 0) {
         kz_puts("no data.\n");
         return -1;
@@ -71,7 +72,7 @@ int16_t main(void)
     static char_t buf[32];
 
     init();
-
+    EI();
     kz_puts("Hello World.\n");
 
     while (true) {

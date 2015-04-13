@@ -76,7 +76,6 @@ _start:
     sel     rb0         /* bank 0 */
 
 /* start user program */
-
     movw    ax, #0
     push    ax      /* envp */
     push    ax      /* argv */
