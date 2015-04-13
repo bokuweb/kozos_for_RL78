@@ -19,6 +19,8 @@
 /* Private Variable ------------------------------------------------ */
 
 /* Private Functions ----------------------------------------------- */
+static int16_t serial_is_send_enable(void);
+static int16_t serial_is_recv_enable(void);
 
 /******************************************************************//**
  * @brief       check whether that can be sent
@@ -29,6 +31,17 @@ static int16_t serial_is_send_enable(void)
 {
     return ((SSR00 & 0x0020) == 0);
 }
+
+/******************************************************************//**
+ * @brief       check whether that can be reecieved
+ * @param       none
+ * @return      none
+ *********************************************************************/
+static int16_t serial_is_recv_enable(void)
+{
+    return (SSR01 & 0x0020);
+}
+
 
 /* Public Functions ------------------------------------------------ */
 
@@ -95,8 +108,8 @@ int16_t serial_init(void)
 
 
 /******************************************************************//**
- * @brief       initialize serial function
- * @param       none
+ * @brief       send byte
+ * @param       c - send data [byte]
  * @return      none
  *********************************************************************/
 int16_t serial_send_byte(uint8_t c)
@@ -108,4 +121,15 @@ int16_t serial_send_byte(uint8_t c)
     return 0;
 }
 
-    
+/******************************************************************//**
+ * @brief       recieve byte
+ * @param       none
+ * @return      none
+ *********************************************************************/
+uint8_t serial_recv_byte(void)
+{
+    while(!serial_is_recv_enable())
+        ;
+    return RXD0;
+}
+

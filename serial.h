@@ -9,5 +9,6 @@
 
 int16_t serial_init(void);
 int16_t serial_send_byte(uint8_t c);
+uint8_t serial_recv_byte(void);
 
 #endif

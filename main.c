@@ -32,7 +32,35 @@ static void init(void)
     serial_init();
 }
 
+/******************************************************************//**
+ * @brief       dump
+ * @param       none
+ * @return      none
+ *********************************************************************/
+static int16_t dump(char_t *buf, int32_t size)
+{
+    uint32_t i;
+
+    if (size < 0) {
+        kz_puts("no data.\n");
+        return -1;
+    }
+    for (i = 0; i < size; i++) {
+        kz_putxval(buf[i], 2);
+        if ((i & 0xf) == 15) {
+            kz_puts("\n");
+        } else {
+            if ((i & 0xf) == 7) kz_puts(" ");
+            kz_puts(" ");
+        }
+    }
+    kz_puts("\n");
+
+    return 0;
+}
+
 /* Public Functions ------------------------------------------------ */
+
 /******************************************************************//**
  * @brief       initialize serial function
  * @param       none
@@ -40,16 +68,29 @@ static void init(void)
  *********************************************************************/    
 int16_t main(void)
 {
+    static char_t buf[16];
+    static int32_t size = -1;
+    static uint8_t *loadbuf = NULL;
+
     init();
 
-    kz_puts("Hello World!\n");
-    kz_putxval(0x10, 0);
-    kz_puts("\n");
-    kz_putxval(0xffff, 0);
-    kz_puts("\n");
+    kz_puts("started.");
 
     while (true) {
-        ;
+        kz_puts("kz > ");
+        kz_gets(buf);
+
+        if (!kz_strcmp(buf, "run")) {
+
+        } else if (!kz_strcmp(buf, "dump")) {
+            kz_puts("size: ");
+            kz_putxval(size, 0);
+            kz_puts("\n");
+            dump(loadbuf, size);
+        } else {
+            kz_puts("unknown");
+        }
     }
+
     return 0;
 }

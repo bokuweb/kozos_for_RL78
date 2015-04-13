@@ -15,7 +15,9 @@ char_t *kz_strcpy(char_t *dst, const char_t *src);
 int16_t *kz_strcmp(const char_t *s1, const char_t *s2);
 int16_t *kz_strncmp(const char_t *s1, const char_t *s2, uint16_t len);
 int16_t kz_putc(uint8_t c);
+uint8_t kz_getc(void);
 int16_t kz_puts(uint8_t *str);
+int16_t kz_gets(uint8_t *buf);
 int16_t kz_putxval(uint32_t value, int16_t column);
 
 #endif
