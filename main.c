@@ -68,25 +68,21 @@ static int16_t dump(char_t *buf, int32_t size)
  *********************************************************************/    
 int16_t main(void)
 {
-    static char_t buf[16];
-    static int32_t size = -1;
-    static uint8_t *loadbuf = NULL;
+    static char_t buf[32];
 
     init();
 
-    kz_puts("started.\n");
+    kz_puts("Hello World.\n");
 
     while (true) {
-        kz_puts("kz > ");
+        kz_puts("> ");
         kz_gets(buf);
 
-        if (!kz_strcmp(buf, "run")) {
-
-        } else if (!kz_strcmp(buf, "dump")) {
-            kz_puts("size: ");
-            kz_putxval(size, 0);
+        if (!kz_strncmp(buf, "echo", 4)) {
+            kz_puts(buf + 4);
             kz_puts("\n");
-            dump(loadbuf, size);
+        } else if (!kz_strcmp(buf, "exit")) {
+            break;
         } else {
             kz_puts("unknown.\n");
         }
