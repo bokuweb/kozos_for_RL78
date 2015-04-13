@@ -74,7 +74,7 @@ int16_t main(void)
 
     init();
 
-    kz_puts("started.");
+    kz_puts("started.\n");
 
     while (true) {
         kz_puts("kz > ");
@@ -88,7 +88,7 @@ int16_t main(void)
             kz_puts("\n");
             dump(loadbuf, size);
         } else {
-            kz_puts("unknown");
+            kz_puts("unknown.\n");
         }
     }
 
