@@ -25,8 +25,8 @@ ALL_FLAGS = $(CFLAGS) $(DEBUG_FLAGS) $(CPU)
 #APPNAME = 
 
 # Specify all objects that you are going to link together
-OBJS	=	  startup.o interrupt_handlers.o main.o  vector.o serial.o lib.o
-SOURCES =	  interrupt_handlers.c main.c  vector.c serial.c lib.c
+OBJS	=	  startup.o interrupt.o main.o  vector.o serial.o lib.o
+SOURCES =	  interrupt.c main.c  vector.c serial.c lib.c
 
 kzload.mot : kzload.x
 	$(PREFIX)-objcopy -O srec kzload.x $@

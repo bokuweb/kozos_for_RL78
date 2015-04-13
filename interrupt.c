@@ -1,5 +1,11 @@
-
-#include "interrupt_handlers.h"
+/********************************************************************//**
+* @file     
+* @brief    
+* @date     2015.xx.xx
+* @author   bokuweb
+***********************************************************************/
+#include "interrupt.h"
+#include "intr.h"
 
 /*
  * INT_WDTI (0x4)
@@ -73,16 +79,14 @@ void INT_DMA1 (void) { }
 /*
  * INT_CSI00/INT_IIC00/INT_ST0 (0x1E)
  */
-void INT_ST0 (void) { }
-//void INT_CSI00 (void) { }
-//void INT_IIC00 (void) { }
+void INT_ST0 (void) {
+    interrupt(SOFTVEC_TYPE_SERINTR, );
+}
 
 /*
  * INT_CSI01/INT_IIC01/INT_SR0 (0x20)
  */
 void INT_SR0 (void) { }
-//void INT_CSI01 (void) { }
-//void INT_IIC01 (void) { }
 
 /*
  * INT_SRE0/INT_TM01H (0x22)

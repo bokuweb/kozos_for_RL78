@@ -1,14 +1,5 @@
-/***************************************************************/
-/*                                                             */
-/*      PROJECT NAME :  RL78G13_LED_SAMPLE                     */
-/*      FILE         :  interrupt_handlers.h                   */
-/*      DESCRIPTION  :  Interrupt Handler Declarations         */
-/*      CPU SERIES   :  RL78 - G13                             */
-/*      CPU TYPE     :  R5F100LE                               */
-/*                                                             */
-/***************************************************************/                            
-#ifndef INTERRUPT_HANDLERS_H
-#define INTERRUPT_HANDLERS_H
+#ifndef _INTERRUPT__H
+#define _INTERRUPT__H
 
 /*
  * INT_WDTI (0x4)
