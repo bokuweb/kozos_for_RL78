@@ -100,8 +100,6 @@ int16_t serial_init(void)
     SS0 |= 0x0003;
     STIF0 = 0;    /* clear INTST0 interrupt flag */
     SRIF0 = 0;    /* clear INTSR0 interrupt flag */
-    STMK0 = 1;    /* enable INTST0 interrupt */
-    SRMK0 = 0;    /* enable INTSR0 interrupt */
 
     return 0;
 }
@@ -133,3 +131,62 @@ uint8_t serial_recv_byte(void)
     return RXD0;
 }
 
+/******************************************************************//**
+ * @brief       
+ * @param       none
+ * @return      none
+ *********************************************************************/
+int16_t serial_intr_is_send_enable(void)
+{
+    return (STMK0 ? 0 : 1);
+}
+
+/******************************************************************//**
+ * @brief       
+ * @param       none
+ * @return      none
+ *********************************************************************/
+void serial_intr_send_enable(void)
+{
+    STMK0 = 0;
+}
+
+/******************************************************************//**
+ * @brief       
+ * @param       none
+ * @return      none
+ *********************************************************************/
+void serial_intr_send_disable(void)
+{
+    STMK0 = 1;
+}
+
+/******************************************************************//**
+ * @brief       
+ * @param       none
+ * @return      none
+ *********************************************************************/
+int16_t serial_intr_is_recv_enable(void)
+{
+    return (SRMK0 ? 0 : 1);
+}
+
+/******************************************************************//**
+ * @brief       
+ * @param       none
+ * @return      none
+ *********************************************************************/
+void serial_intr_recv_enable(void)
+{
+    SRMK0 = 0;
+}
+
+/******************************************************************//**
+ * @brief       
+ * @param       none
+ * @return      none
+ *********************************************************************/
+void serial_intr_recv_disable(void)
+{
+    SRMK0 = 1;
+}

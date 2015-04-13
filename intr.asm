@@ -13,10 +13,10 @@ _intr_serintr:
     push    bc
     push    de
     push    hl
-    movw    ax, #SOFTVEC_TYPE_SERINTR
-    push    ax      /* type */
-    movw    ax, sp
+    movw    ax, [sp]
     push    ax      /* sp */
+    movw    ax, #SOFTVEC_TYPE_SERINTR
+    push    ax      /* type */    
     call    !!_interrupt
     pop     ax      /* sp */
     pop     ax      /* type */

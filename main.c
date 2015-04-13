@@ -13,11 +13,43 @@
 #include "iodefine.h"
 #include "defines.h"
 #include "serial.h"
+#include "interrupt.h"
 #include "lib.h"
+#include "intr.h"
 
 /* Private Variable ------------------------------------------------ */
 
 /* Private Functions ----------------------------------------------- */
+
+/******************************************************************//**
+ * @brief       serial interrup handler
+ * @param       none
+ * @return      none
+ *********************************************************************/
+static void intr(softvec_type_t type, uint16_t sp)
+{
+    uint16_t c;
+    static char buf[32];
+    static int16_t len;
+
+    LED1 = ~LED1;
+    
+    c = kz_getc();
+
+    if (c != '\n') {
+        buf[len++] = c;
+    } else {
+        buf[len++] = '\0';
+        if (!kz_strncmp(buf, "echo", 4)) {
+            kz_puts(buf + 4);
+            kz_puts("\n");
+        } else {
+            kz_puts("unknown.\n");
+        }
+        kz_puts("> ");
+        len = 0;
+    }
+}
 
 /******************************************************************//**
  * @brief       initialize
@@ -28,7 +60,7 @@ static void init(void)
 {
     LED1_PIN = 0; // Make Pin as O/P
     LED1 = 0;     // Turn LED ON
-
+    softvec_init();
     serial_init();
 }
 
@@ -71,22 +103,20 @@ int16_t main(void)
 {
     static char_t buf[32];
 
+    DI();
+
     init();
-    EI();
+
     kz_puts("Hello World.\n");
 
-    while (true) {
-        kz_puts("> ");
-        kz_gets(buf);
+    softvec_setintr(SOFTVEC_TYPE_SERINTR, intr);
 
-        if (!kz_strncmp(buf, "echo", 4)) {
-            kz_puts(buf + 4);
-            kz_puts("\n");
-        } else if (!kz_strcmp(buf, "exit")) {
-            break;
-        } else {
-            kz_puts("unknown.\n");
-        }
+    serial_intr_recv_enable();
+
+    EI();
+
+    while (true) {
+
     }
 
     return 0;
